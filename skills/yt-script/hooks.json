@@ -1,0 +1,339 @@
+{
+ "version": "2.0-fr",
+ "note": "21 formules de hook pour YouTube. Sur YouTube, le hook, ce sont les 15 premières secondes, et elles ont trois jobs : confirmer le clic que le titre a promis, ouvrir une question que le viewer ne peut pas refermer, et prouver que la réponse existe. Un hook qui ne fait que le troisième est un résumé, et il fuit. Chaque formule porte sa forme, un exemple, le cas où elle échoue, et les motifs (français et anglais) avec lesquels hookscore.py et swipe.py la reconnaissent. Une niche française copie souvent des vidéos américaines : les motifs anglais restent pour classer leurs titres.",
+ "rules": [
+  "Confirme le titre dès la première phrase. Un hook qui ignore son propre titre, c'est pour ça qu'on part à 0:08.",
+  "Une seule idée. Un hook qui porte deux promesses n'en tient aucune.",
+  "Le précis bat le grand. « De 400 à 200 000 abonnés en sept mois » bat « une croissance énorme ».",
+  "Si tu as promis un objet (un prompt, un fichier, un écran), montre-le avant 20 secondes.",
+  "N'ouvre jamais sur qui tu es. Le « abonne-toi » ne se mérite pas encore."
+ ],
+ "hooks": [
+  {
+   "id": "the-statistic",
+   "name": "La Statistique",
+   "shape": "Un chiffre que le viewer ne connaît pas, dit à plat, puis la conséquence.",
+   "example": "Sur mes 40 dernières vidéos, 9 ont fait 80 % des vues. Elles ont toutes un point commun.",
+   "fails_when": "Meurt si le chiffre est vague ou invérifiable. Dis la source à voix haute.",
+   "match": [
+    "\\b\\d+([.,]\\d+)?\\s?%",
+    "\\b\\d+ (sur|out of|in) \\d+\\b",
+    "\\b\\d{1,3}([ \\u00a0\\u202f,.]\\d{3})+\\b",
+    "\\b\\d+ fois plus\\b"
+   ]
+  },
+  {
+   "id": "someone-elses-result",
+   "name": "Le Résultat d'un autre",
+   "shape": "Le résultat d'une personne ou d'une chaîne nommée, puis le mécanisme.",
+   "example": "Cette chaîne est passée de 400 à 200 000 abonnés en sept mois avec un seul format. J'ai cartographié ce format.",
+   "fails_when": "N'invente pas le chiffre. Si tu ne peux pas nommer la chaîne, prends une autre formule.",
+   "match": [
+    "\\b(cette|cet) (chaîne|gars|mec|créateur|créatrice|compte|youtubeur|youtubeuse)\\b",
+    "\\b(est |sont )?pass(é|ée|és|ées) de .+ à\\b",
+    "\\ben (un|une|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|douze|\\d+) (semaines?|mois|ans|années?)\\b",
+    "\\bthis (channel|guy|creator|account)\\b",
+    "\\bwent from .* to\\b",
+    "\\bin (a|one|two|three|\\d+) (week|month|year)s?\\b"
+   ]
+  },
+  {
+   "id": "the-mistake",
+   "name": "L'Erreur",
+   "shape": "Nomme l'erreur que le viewer est sans doute en train de faire.",
+   "example": "Tes 30 premières secondes, c'est la raison pour laquelle personne ne finit tes vidéos. Et ce n'est pas le sujet.",
+   "fails_when": "Ne marche que si l'erreur est courante et que le viewer peut la vérifier en une seconde.",
+   "match": [
+    "\\btu (fais|commets) (probablement |sûrement |encore |toujours )?(la même |cette |une |l['’])?erreur\\b",
+    "\\bl['’]erreur (que|de) (tout le monde|la plupart|presque tout le monde)\\b",
+    "\\bla raison pour laquelle\\b",
+    "\\b(arrête|arrêtez) de\\b",
+    "\\byou('re| are) (probably |still )?(doing|making)\\b",
+    "\\bthe (mistake|reason) (everyone|most people|nobody)\\b"
+   ]
+  },
+  {
+   "id": "contrarian-flip",
+   "name": "Le Contre-pied",
+   "shape": "Énonce le conseil que tout le monde suit, puis rejette-le.",
+   "example": "Tout le monde dit de poster tous les jours. J'ai posté une fois par semaine pendant un an, et j'ai triplé la chaîne.",
+   "fails_when": "Il faut la preuve dans les 15 secondes suivantes, sinon ça sonne contre pour être contre.",
+   "match": [
+    "\\btout le monde (dit|pense|te dit|vous dit|répète|croit|conseille)\\b",
+    "\\bc['’]est (complètement |totalement )?faux\\b",
+    "\\bon (t['’]a|vous a) menti\\b",
+    "\\bcontrairement à ce qu['’]on\\b",
+    "\\beveryone (says|thinks|tells you)\\b",
+    "\\bis (actually )?wrong\\b",
+    "\\bnobody (tells|talks about)\\b"
+   ]
+  },
+  {
+   "id": "the-reveal",
+   "name": "La Révélation",
+   "shape": "Promets de montrer une chose précise, puis montre-la.",
+   "example": "Ce prompt de 12 lignes a écrit toute cette vidéo. Je te le montre à l'écran, ligne par ligne.",
+   "fails_when": "Tu dois vraiment le montrer, et tôt. Une révélation à 8:00, c'est une falaise de rétention à 1:00. Et n'ouvre pas sur « je vais te montrer » : c'est un préambule, et sur 623 reels français mesurés les préambules cartonnent moins (9 % de hits contre 18 %). Commence par l'objet.",
+   "match": [
+    "\\bje (vais|veux) (te|vous) montrer\\b",
+    "\\bje (te|vous) (le|la|les) montre\\b",
+    "\\bvoici (le|la|les|exactement|comment)\\b",
+    "\\bà l['’]écran\\b",
+    "\\b(le|la) (prompt|fichier|template|script|modèle|méthode) exacte?\\b",
+    "\\bI('m| am) going to show you\\b",
+    "\\bhere('s| is) (the|exactly)\\b",
+    "\\bon screen\\b"
+   ]
+  },
+  {
+   "id": "the-superlative",
+   "name": "Le Superlatif",
+   "shape": "Le meilleur, le pire ou le plus rapide d'une catégorie.",
+   "example": "C'est la façon la plus rapide de transformer une vidéo longue en trente Shorts.",
+   "fails_when": "Un superlatif ne coûte rien. Mérite-le en nommant ce qu'il a battu.",
+   "match": [
+    "\\b(le|la|les) (plus|moins) [a-zà-ÿ-]+",
+    "\\b(le|la|les) (meilleure?s?|pire|seule?)\\b",
+    "\\bnuméro (un|1)\\b",
+    "\\bthe (best|worst|fastest|easiest|only)\\b",
+    "\\bnumber one\\b"
+   ]
+  },
+  {
+   "id": "the-clock",
+   "name": "Le Chrono",
+   "shape": "Borne la promesse dans le temps.",
+   "example": "Dans les six prochaines minutes, tu repars avec le titre, la miniature et le script de ta prochaine vidéo.",
+   "fails_when": "Le chrono doit être vrai. Dépasse-le et le hook de la vidéo suivante ne sera pas cru.",
+   "match": [
+    "\\b(dans|en) (les )?(\\d+|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|quinze|trente) (prochaines? )?(secondes?|minutes?|heures?)\\b",
+    "\\bà la fin de (cette|la) vidéo\\b",
+    "\\ben moins de \\d+\\b",
+    "\\bin (the next )?\\d+ (seconds|minutes|hours)\\b",
+    "\\bby the end of this video\\b",
+    "\\bunder \\d+\\b"
+   ]
+  },
+  {
+   "id": "i-tried-it",
+   "name": "J'ai testé",
+   "shape": "Une expérience à la première personne, avec son coût.",
+   "example": "J'ai laissé une IA gérer ma chaîne pendant 30 jours. Je n'ai touché à aucune mise en ligne.",
+   "fails_when": "Il faut un vrai coût (temps, argent, risque), sinon il n'y a pas d'enjeu.",
+   "match": [
+    "\\bj['’]ai (testé|essayé|dépensé|passé|laissé|donné|tenté|confié|posté|publié|monté|filmé|infiltré|enquêté|vécu)\\b",
+    "\\bpendant (\\d+|deux|trois|quatre|cinq|six|sept|dix|trente) (jours|semaines|mois|ans)\\b",
+    "\\b\\d+ \\w+ en \\d+ (jours|semaines|mois)\\b",
+    "\\bpour que (tu n['’]aies|vous n['’]ayez) pas à\\b",
+    "\\bI (tried|spent|tested|let|gave)\\b",
+    "\\bfor \\d+ (days|weeks|months)\\b",
+    "\\bso you don'?t have to\\b"
+   ]
+  },
+  {
+   "id": "the-question",
+   "name": "La Question",
+   "shape": "Pose la question exacte que le viewer a tapée dans la recherche.",
+   "example": "Pourquoi tes vidéos meurent à 30 secondes alors que le sujet est bon ?",
+   "fails_when": "Ce doit être la question du viewer, pas la tienne. Va la chercher dans tes commentaires.",
+   "match": [
+    "^(pourquoi|comment|qu['’]est-ce|quel|quelle|quels|quelles|combien|est-ce que|faut-il|peut-on|doit-on)\\b",
+    "\\?\\s*$",
+    "^(why|how|what|when|should|can|do|does|is)\\b"
+   ]
+  },
+  {
+   "id": "the-before-after",
+   "name": "Avant / Après",
+   "shape": "Deux états, une coupe entre les deux.",
+   "example": "Ça, c'était ma miniature. Ça, c'est ma miniature aujourd'hui. Même vidéo, quatre fois plus de clics.",
+   "fails_when": "Ne marche qu'avec un visuel. Pas sur une vidéo face caméra sans rien à montrer.",
+   "match": [
+    "\\bavant\\b.*\\baprès\\b",
+    "\\bc['’]était\\b.*\\bc['’]est\\b",
+    "\\b(ça|voilà|ceci),? c['’]était\\b",
+    "\\bj['’]avais l['’]habitude\\b",
+    "\\bbefore\\b.*\\bafter\\b",
+    "\\bthis was\\b.*\\bthis is\\b",
+    "\\bused to\\b"
+   ]
+  },
+  {
+   "id": "the-teardown",
+   "name": "Le Décorticage",
+   "shape": "Démonte une vraie chose en public.",
+   "example": "J'ai pris les neuf vidéos IA les plus vues du mois et j'ai décortiqué ce que leurs titres ont en commun.",
+   "fails_when": "Dis ce que tu as pris et combien. Le décorticage d'un seul exemple, c'est une anecdote.",
+   "match": [
+    "\\bdécortiqu\\w*",
+    "\\bdisséqu\\w*|\\bdissèqu\\w*",
+    "\\bj['’]ai (pris|récupéré|analysé|épluché|passé au crible|compilé)\\b",
+    "\\banalys(e|é|ée|er|ant)\\b",
+    "\\b(broke|break|breaking) (it )?down\\b",
+    "\\bteardown\\b",
+    "\\bI pulled\\b"
+   ]
+  },
+  {
+   "id": "the-stack",
+   "name": "Le Combo",
+   "shape": "Deux outils nommés, combinés en un seul résultat.",
+   "example": "Claude plus ton export YouTube Studio, ça te sort le planning de la semaine prochaine en un seul prompt.",
+   "fails_when": "Les deux outils doivent être nommables, et le résultat doit avoir besoin des deux.",
+   "match": [
+    "(?-i:[A-ZÀ-Ý])\\w+ (plus|\\+|avec) (ton|ta|tes|un|une|le|la|(?-i:[A-ZÀ-Ý])\\w+)\\b",
+    "\\b(combine|combiner|combinant|combinés?|branche|brancher|branché)\\b",
+    "\\bensemble\\b",
+    "\\bcombine\\b",
+    "\\btogether\\b"
+   ]
+  },
+  {
+   "id": "the-warning",
+   "name": "L'Avertissement",
+   "shape": "Un coût que le viewer est sur le point de payer.",
+   "example": "Ne mets plus aucune vidéo en ligne avant d'avoir vérifié ce réglage.",
+   "fails_when": "Si le coût est petit, le hook est un mensonge. Garde-le pour les vrais coûts.",
+   "match": [
+    "\\bne (mets|poste|publie|lance|commence|fais|touche|achète|signe|uploade) (plus|pas|jamais|rien|aucune?)\\b",
+    "\\bavant d['’]avoir\\b",
+    "\\bavant de (poster|publier|lancer|mettre|uploader|commencer|filmer)\\b",
+    "\\bsurtout pas\\b",
+    "\\bdo not\\b",
+    "\\bdon'?t (upload|post|publish|start)\\b",
+    "\\bbefore you\\b"
+   ]
+  },
+  {
+   "id": "the-list",
+   "name": "La Liste",
+   "shape": "Un ensemble compté, avec le nombre dans la première ligne.",
+   "example": "Sept choses que je ferais autrement si je lançais une chaîne en 2026.",
+   "fails_when": "Le nombre doit être exact et chaque élément doit être d'une nature différente.",
+   "match": [
+    "^(\\d+|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|onze|douze|quinze|vingt) (\\w+ )?(choses|erreurs|outils|astuces|règles|leçons|façons|raisons|étapes|conseils|trucs|formats|idées|prompts|habitudes)\\b",
+    "\\b(voici|voilà) (les )?(\\d+|deux|trois|quatre|cinq|six|sept|huit|neuf|dix)\\b",
+    "^\\d+ [a-z]+",
+    "\\b(here are|these are) \\d+\\b"
+   ]
+  },
+  {
+   "id": "the-receipt",
+   "name": "La Preuve",
+   "shape": "Montre l'objet d'abord, explique ensuite.",
+   "example": "Ça, c'est ma page Analytics. Cette vidéo a fait 40 % du temps de visionnage de la chaîne. Voilà pourquoi.",
+   "fails_when": "Il faut une vraie capture. Une preuve qu'on décrit n'est pas une preuve.",
+   "match": [
+    "\\b(ça|ceci|voici),? c['’]est (la|le|ma|mon|mes)\\b",
+    "\\bcapture( d['’]écran)?\\b",
+    "\\bpreuves?\\b",
+    "\\bmes (chiffres|stats|statistiques|revenus|analytics)\\b",
+    "\\bpage analytics\\b",
+    "\\bthis is (the|my)\\b",
+    "\\bscreenshot\\b",
+    "\\bproof\\b",
+    "\\breceipts?\\b"
+   ]
+  },
+  {
+   "id": "the-insider",
+   "name": "L'Initié",
+   "shape": "Une information venue de l'intérieur d'un système.",
+   "example": "YouTube te dit quelles vidéos sous-performent. Presque personne n'ouvre ce rapport.",
+   "fails_when": "Ne revendique pas un accès d'initié que tu n'as pas.",
+   "match": [
+    "\\b(presque personne|personne|peu de gens|la plupart des gens) (ne |n['’])(sai|sav|conn|ouvr|utilis|regard|lit|lis)\\w*",
+    "\\bcaché(e|s|es)?\\b",
+    "\\b(enfoui|planqué)\\w*",
+    "\\ben coulisses?\\b",
+    "\\b(nobody|almost nobody|most people) (knows?|opens?|uses?)\\b",
+    "\\bhidden\\b",
+    "\\bburied\\b"
+   ]
+  },
+  {
+   "id": "the-impossible",
+   "name": "L'Impossible",
+   "shape": "Une affirmation qui sonne fausse, puis la preuve.",
+   "example": "Tu peux écrire, titrer et programmer une semaine de vidéos sans ouvrir un seul logiciel de montage.",
+   "fails_when": "La preuve doit commencer avant 20 secondes, sinon ça se lit comme du putaclic.",
+   "match": [
+    "\\bsans\\b",
+    "\\bjamais\\b",
+    "\\b(en|un|une) seule?\\b",
+    "\\bzéro\\b",
+    "\\bwithout\\b",
+    "\\bnever\\b",
+    "\\bin one\\b",
+    "\\bzero\\b"
+   ]
+  },
+  {
+   "id": "the-comparison",
+   "name": "La Comparaison",
+   "shape": "Deux options nommées, une gagnante.",
+   "example": "J'ai écrit la même vidéo de trois façons. Une a gardé 62 % des gens, les deux autres non.",
+   "fails_when": "Dis l'option perdante à voix haute. Une comparaison sans perdant, c'est une pub.",
+   "match": [
+    "\\bvs\\.?\\b",
+    "\\bversus\\b",
+    "\\b(lequel|laquelle|qui) (gagne|l['’]emporte)\\b",
+    "\\b(la|le) même .* (de|en) (deux|trois|\\d+) (façons|manières|versions)\\b",
+    "\\bles (deux|trois) autres\\b",
+    "\\bwhich (one )?(is|wins)\\b",
+    "\\bsame .* (three|two) ways\\b"
+   ]
+  },
+  {
+   "id": "the-origin",
+   "name": "L'Origine",
+   "shape": "D'où vient vraiment un résultat.",
+   "example": "Chaque vidéo de cette chaîne part du même fichier de 12 lignes. Le voilà.",
+   "fails_when": "Ne marche qu'une fois par chaîne. C'est une révélation sur toi, et tu n'en as qu'une.",
+   "match": [
+    "\\bchaque (vidéo|post|reel|short)\\b.*\\b(commence|part|naît)\\b",
+    "\\btout (a commencé|commence|part|est parti) (par|de|d['’]|avec)\\b",
+    "\\b(du|le|la) même (fichier|document|template|carnet|doc|modèle)\\b",
+    "\\bla vraie raison\\b",
+    "\\bd['’]où (ça|tout) vient\\b",
+    "\\bevery (video|post) .* starts\\b",
+    "\\bit all (starts|started)\\b",
+    "\\bthe real reason\\b"
+   ]
+  },
+  {
+   "id": "the-deadline",
+   "name": "L'Échéance",
+   "shape": "Quelque chose change à une date.",
+   "example": "L'ancien format de description ne compte plus à partir de ce mois-ci. Voilà ce qui le remplace.",
+   "fails_when": "Seulement avec une date réelle et vérifiable. C'est la formule qui perd la confiance le plus vite.",
+   "match": [
+    "\\b(cette semaine|ce mois(-ci)?|cette année|la semaine prochaine|le mois prochain|l['’]an prochain|l['’]année prochaine)\\b",
+    "\\b(change|changent|va changer|disparaît|disparaissent|s['’]arrête)\\b",
+    "\\bne (compte|marche|fonctionne|sert) plus\\b",
+    "\\bà partir d(e|u)\\b",
+    "\\b(this|next) (week|month|year)\\b",
+    "\\bis changing\\b",
+    "\\bno longer\\b",
+    "\\bas of\\b"
+   ]
+  },
+  {
+   "id": "the-direct-address",
+   "name": "L'Interpellation",
+   "shape": "Nomme le viewer exact dans les six premiers mots.",
+   "example": "Toi qui as moins de mille abonnés : c'est la seule vidéo dont tu as besoin cette semaine.",
+   "fails_when": "L'étroit bat le large : « toi qui fais des vidéos » ne s'adresse à personne. Et n'ouvre pas sur « Si tu… » : sur 623 reels français mesurés, c'est l'ouverture qui marche le moins (7 % de hits contre 19 %). Nomme le viewer sans poser de condition.",
+   "match": [
+    "^si (tu|t['’]|vous)\\b",
+    "\\bsi (tu|vous) (as|avez|es|êtes|fais|faites|veux|voulez|débutes|lances|n['’]as|n['’]es)\\b",
+    "\\bpour (tous )?(ceux|celles|les gens) qui\\b",
+    "^(toi|vous) qui\\b",
+    "\\btoi qui\\b",
+    "^if you\\b",
+    "\\bfor (anyone|everyone|people) who\\b",
+    "\\byou specifically\\b"
+   ]
+  }
+ ]
+}

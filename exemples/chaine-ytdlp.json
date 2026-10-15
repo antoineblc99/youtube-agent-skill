@@ -1,0 +1,59 @@
+{
+ "_type": "playlist",
+ "id": "UCexemple",
+ "title": "Studio Débutant - Videos",
+ "channel": "Studio Débutant",
+ "uploader": "Studio Débutant",
+ "entries": [
+  {
+   "_type": "url",
+   "ie_key": "Youtube",
+   "id": "ex0",
+   "url": "https://www.youtube.com/watch?v=ex0",
+   "title": "Mon matériel à 200 €",
+   "duration": 540,
+   "view_count": 4100,
+   "channel": null
+  },
+  {
+   "_type": "url",
+   "ie_key": "Youtube",
+   "id": "ex1",
+   "url": "https://www.youtube.com/watch?v=ex1",
+   "title": "Filmer avec un iPhone",
+   "duration": 610,
+   "view_count": 3900,
+   "channel": null
+  },
+  {
+   "_type": "url",
+   "ie_key": "Youtube",
+   "id": "ex2",
+   "url": "https://www.youtube.com/watch?v=ex2",
+   "title": "J'ai testé 5 micros à moins de 50 €",
+   "duration": 720,
+   "view_count": 22800,
+   "channel": null
+  },
+  {
+   "_type": "url",
+   "ie_key": "Youtube",
+   "id": "ex3",
+   "url": "https://www.youtube.com/watch?v=ex3",
+   "title": "Éclairage : les bases",
+   "duration": 480,
+   "view_count": 3600,
+   "channel": null
+  },
+  {
+   "_type": "url",
+   "ie_key": "Youtube",
+   "id": "ex4",
+   "url": "https://www.youtube.com/watch?v=ex4",
+   "title": "Ma première année sur YouTube",
+   "duration": 900,
+   "view_count": 4400,
+   "channel": null
+  }
+ ]
+}

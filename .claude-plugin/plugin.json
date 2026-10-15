@@ -1,0 +1,10 @@
+{
+  "name": "youtube-agent",
+  "description": "Onze skills Claude qui font tourner une chaîne YouTube, en français : des scripts sur 21 formules de hook avec un score calibré, le titre et la miniature vérifiés comme une paire, la liste des coupes à partir du transcript, la lecture de la rétention, les Shorts, la description et les chapitres, les commentaires, le plan de la semaine, l'audit de chaîne, la viralité (trouve, décortique, reconstruis) et la publication après ton oui.",
+  "version": "1.0.0",
+  "author": { "name": "Antoine Blanco", "url": "https://github.com/antoineblc99" },
+  "homepage": "https://github.com/antoineblc99/youtube-agent-skill",
+  "repository": "https://github.com/antoineblc99/youtube-agent-skill",
+  "license": "MIT",
+  "keywords": ["youtube", "shorts", "retention", "miniatures", "titres", "script", "video", "seo", "francais"]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "youtube-agent-skill",
+  "description": "Le pack de skills YouTube pour Claude, en français",
+  "owner": { "name": "Antoine Blanco", "url": "https://github.com/antoineblc99" },
+  "plugins": [
+    {
+      "name": "youtube-agent",
+      "description": "Onze skills Claude qui font tourner une chaîne YouTube : hooks notés, titre et miniature vérifiés en paire, liste de coupes, lecture de la rétention, Shorts, viralité et publication après ton oui.",
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/antoineblc99/youtube-agent-skill"
+    }
+  ]
+}
